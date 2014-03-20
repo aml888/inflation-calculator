@@ -105,26 +105,36 @@ class InflationCalc
 		2011 => 224.939,
 		2012 => 229.594,
 		2013 => 232.957,
-		2014 => 233.916}
+		2014 => 234.781}
 	end
 	
-	def calculate
+	def get_amount
 		print "Enter amount: "
-		amount = gets.chomp
+		@amount = gets.chomp
+	end
+	
+	def get_year 
 		print "Pick a year from 1913 to 2013: "
-		year = gets.chomp.to_i
+		@year = gets.chomp.to_i
+		
 		while true
-			if year < 1913 || year > 2013
+			if @year < 1913 || @year > 2013
 				print "The year must be from 1913 to 2013. Enter year: "
-				year = gets.chomp.to_i
+				@year = gets.chomp.to_i
+				
 			else
 				break
 			end
 		end
-		a = amount.to_d * (cpi[2014].to_d / cpi[year].to_d)
-		puts "$#{amount} in #{year} has the same buying power as $#{a.to_f.round(2)} in 2014."
+	end
+	
+	def calculate
+		a = @amount.to_d * (cpi[2014].to_d / cpi[@year].to_d)
+		puts "$#{@amount} in #{@year} has the same buying power as $#{a.to_f.round(2)} in 2014."
 	
 	end
 end
 f = InflationCalc.new
+f.get_amount
+f.get_year
 f.calculate
